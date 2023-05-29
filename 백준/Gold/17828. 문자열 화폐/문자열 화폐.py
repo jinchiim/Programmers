@@ -1,19 +1,21 @@
-from collections import deque
-
 n,m = map(int, input().split()) #  count , num
 
-answer = deque()
+answer = ['A'] * n
 
 if n * 26 < m or n > m:
     print("!")
+    
 else:
-    for i in range(n):
-        left = n - i - 1;    # 적어도 A 한개씩은 들어가야함
-        if m-left > 26:      # 남은 수기 26보다 큰 경우
-            answer.appendleft("Z")
-            m = m-26         # m은 Z값을 뺀 만큼
+    m -= n
+    i = n - 1
+    
+    while m > 0:
+        if m > 26:      # 남은 수기 26p보다 큰 경우
+            answer[i] = 'Z'
+            i -= 1
+            m -= 25
         else:
-            answer.appendleft(chr(m-left + 64)) 
-            m = m -(m-left)
+            answer[i] = chr(m + 65) # 대문자 이므로 65부터 시작
+            break
             
     print("".join(answer))
